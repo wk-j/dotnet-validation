@@ -1,0 +1,7 @@
+Tools: sys.read, sys.write
+
+1. Write generic reflection method for transform any C# model (example src/MyModel/Student.cs) into flat format src/MyModel/Property.cs
+   - Extract the property name and map the value according to its type.
+2. Write generic method for transform Property in 1. back to original object.
+
+Don't change src/MyModel/Property.cs, Then write output to src/MyModel/MyConverter.cs.

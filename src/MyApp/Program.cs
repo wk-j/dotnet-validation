@@ -1,5 +1,16 @@
 
+using System.Text.Json;
 using MyModel;
+
+void Vaidate<T>(T obj)
+{
+    var (isValid, result) = MyValidator.ValidateObject(obj);
+    Console.WriteLine(isValid);
+    foreach (var item in result)
+    {
+        Console.WriteLine(item.ErrorMessage);
+    }
+}
 
 Student student = new()
 {
@@ -8,11 +19,11 @@ Student student = new()
     Email = "@gmail.com"
 };
 
-var (isValid, result) = MyValidator.ValidateObject(student);
+var property = MyConverter.ToFlatFormat(student);
 
-Console.WriteLine(isValid);
+var propertyJson = JsonSerializer.Serialize(property, new JsonSerializerOptions { WriteIndented = true });
+Console.WriteLine(propertyJson);
 
-foreach (var item in result)
-{
-    Console.WriteLine(item.ErrorMessage);
-}
+var obj = MyConverter.FromFlatFormat<Student>(property);
+var objJson = JsonSerializer.Serialize(obj, new JsonSerializerOptions { WriteIndented = true });
+Console.WriteLine(objJson);
